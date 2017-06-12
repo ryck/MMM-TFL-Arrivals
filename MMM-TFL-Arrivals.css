@@ -1,0 +1,49 @@
+.bus {
+  font-size: 75%;
+  display: inline-block;
+  -o-transform: translate(0, -3px);
+  -moz-transform: translate(0, -3px);
+  -ms-transform: translate(0, -3px); /* IE 9 */
+  -webkit-transform: translate(0, -3px); /* Safari */
+  transform: translate(0, -3px);
+}
+
+ .dest {
+  max-width: 135px;
+  overflow: hidden;
+  padding-right: 10px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.route {
+  font-weight: bold;
+  padding-right: 10px;
+  text-align: left;
+}
+
+.bus:before {
+  content: '\f207';
+  font-family: 'FontAwesome';
+}
+
+.tube:before {
+  content: '\f239';
+  font-family: 'FontAwesome';
+}
+
+.late {
+  color: #ff0000;
+}
+
+.busStopName {
+  color: #999;
+  font-family: "Roboto Condensed";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 15px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  text-align: left;
+}
