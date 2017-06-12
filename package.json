@@ -1,7 +1,7 @@
 {
     "name":         "MMM-TFL-Arrivals",
     "version":      "1.0.0",
-    "description":  "MagicMirror 2 module to get arrivals predictions to bus stops from TfL.",
+    "description":  "MagicMirror 2 module to get arrivals predictions using TfL API.",
     "repository":   {
                     "type": "git",
                     "url":  "git+https://github.com/ryck/MMM-TFL-Arrivals"
