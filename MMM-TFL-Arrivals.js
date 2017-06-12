@@ -13,8 +13,8 @@ Module.register("MMM-TFL-Arrivals", {
 		animationSpeed: 2000,
 		fade: true,
 		fadePoint: 0.25, // Start on 1/4th of the list.
-		limit: 10,
-		initialLoadDelay: 0, // start delay seconds.
+		limit: 5,
+		initialLoadDelay: 0, // start delay in milliseconds.
 		debug: false
 
 	},
