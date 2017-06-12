@@ -117,8 +117,10 @@ Module.register("MMM-TFL-Arrivals", {
 				switch (bus.modeName) {
 					case "bus":
 					routeCell.className += " bus";
+					break;
 					case "tube":
 					routeCell.className += " tube";
+					break;
 				}
 				routeCell.innerHTML = " " + bus.routeName + " ";
 				row.appendChild(routeCell);
