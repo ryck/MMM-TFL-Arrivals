@@ -55,8 +55,6 @@ Here is an example of an entry in `config.js`
 ## Dependencies
 - [request](https://www.npmjs.com/package/request) (installed via `npm install`)
 
-## Notes
-
 
 ## Thanks To...
 - [Nick Wootton](https://github.com/MichMich) for the [MMM-UKLiveBusStopInfo](https://github.com/nwootton/MMM-UKLiveBusStopInfo) module, which I used as reference.
