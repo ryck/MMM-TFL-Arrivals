@@ -2,7 +2,7 @@
 
 This a module for the [MagicMirror](https://github.com/MichMich/MagicMirror).
 
-This module gets real time arrival predictions for specifc stops using the TfL API.
+This module gets real time arrival predictions for specific stops using the TfL API.
 
 
 ![](screenshots/screenshot_01.png)
