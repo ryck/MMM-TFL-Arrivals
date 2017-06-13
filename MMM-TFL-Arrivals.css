@@ -1,18 +1,18 @@
 .route {
   font-size: 75%;
   display: inline-block;
-  -o-transform: translate(0, -3px);
-  -moz-transform: translate(0, -3px);
-  -ms-transform: translate(0, -3px); /* IE 9 */
-  -webkit-transform: translate(0, -3px); /* Safari */
-  transform: translate(0, -3px);
-  font-weight: bold;
   padding-right: 10px;
   text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 90px;
+  max-width: 90px;  
 }
 
  .dest {
-  max-width: 135px;
+  max-width: 280px;
+  width: 260px;
   overflow: hidden;
   padding-right: 10px;
   text-align: left;
@@ -20,16 +20,21 @@
   white-space: nowrap;
 }
 
+.route:before {
+  font-size: 125%;
+  font-family: 'FontAwesome';
+}
 .bus:before {
   content: '\f207';
-  font-family: 'FontAwesome';
 }
 
 .tube:before {
   content: '\f239';
-  font-family: 'FontAwesome';
 }
 
+.timeTabled {
+  text-align: right;
+}
 .late {
   color: #ff0000;
 }
