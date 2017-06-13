@@ -3,16 +3,10 @@
   display: inline-block;
   padding-right: 10px;
   text-align: left;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 90px;
-  max-width: 90px;  
 }
 
  .dest {
-  max-width: 280px;
-  width: 260px;
+  max-width: 150px;
   overflow: hidden;
   padding-right: 10px;
   text-align: left;
