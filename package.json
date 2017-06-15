@@ -1,6 +1,6 @@
 {
     "name":         "MMM-TFL-Arrivals",
-    "version":      "1.0.0",
+    "version":      "1.2.0",
     "description":  "MagicMirror 2 module to get arrivals predictions using TfL API.",
     "repository":   {
                     "type": "git",
@@ -15,7 +15,7 @@
                     "TfL",
                     "module"
                     ],
-    "author":       "Nigel Daniels",
+    "author":       "Ricardo Gonzalez",
     "contributors": "https://github.com/ryck/MMM-TFL-Arrivals/graphs/contributors",
     "license":      "MIT",
     "bugs":         {
