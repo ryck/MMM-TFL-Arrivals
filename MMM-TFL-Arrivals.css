@@ -6,7 +6,8 @@
 }
 
  .dest {
-  max-width: 150px;
+  min-width: 175px;
+  max-width: 200px;
   overflow: hidden;
   padding-right: 10px;
   text-align: left;
