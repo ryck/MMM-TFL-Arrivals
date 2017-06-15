@@ -15,6 +15,7 @@ Module.register("MMM-TFL-Arrivals", {
 		fadePoint: 0.25, // Start on 1/4th of the list.
 		limit: 5,
 		initialLoadDelay: 0, // start delay in milliseconds.
+		color: true,
 		debug: false
 	},
 	start: function() {
@@ -127,10 +128,14 @@ Module.register("MMM-TFL-Arrivals", {
 				var minutes = moment.duration(bus.timeToStation, "seconds").minutes();
 				if (minutes < 1) {
 					timeToStation = "Due"
-					timeTabledCell.className += " due";
+					if (this.config.color) {
+						timeTabledCell.className += " due";
+					}
 				} else if (minutes < 2) {
 					timeToStation = minutes + " " + "min";
-					timeTabledCell.className += " late";
+					if (this.config.color) {
+						timeTabledCell.className += " late";
+					}
 				} else {
 					timeToStation = minutes + " " + "mins";
 				}

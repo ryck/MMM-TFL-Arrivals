@@ -5,8 +5,8 @@ This a module for the [MagicMirror](https://github.com/MichMich/MagicMirror).
 This module gets real time arrival predictions for specific stops using the TfL API.
 
 
-![](screenshots/screenshot_01.png)
-
+![](screenshots/due.png)
+![](screenshots/late.png)
 
 ## Installation
 ```bash
@@ -28,6 +28,7 @@ The entry in `config.js` can include the following options:
 | `initialLoadDelay`           | The initial delay before loading. If you have multiple modules that use the same API key, you might want to delay one of the requests. (Milliseconds) <br><br>**Type:** `integer`<br>**Possible values:** `1000` - `5000` <br> **Default value:**  `0`|
 | `animationSpeed`             | Speed of the update animation. (Milliseconds) <br><br>**Type:** `integer`<br>**Possible values:**`0` - `5000` <br> **Default value:** `2000` (2 seconds)|
 |`limit`|Number of departures to return.<br><br>**Type:** `string`<br>**Default:** 5|
+| `color` | Use some accent colors for due and late status <br><br>**Type:** `bool`<br>**Possible values:** `true` or `false` <br> **Default value:** `true`|
 | `debug`             | Show debug information. <br><br>  **Possible values:** `true` or `false`  <br> **Default value:** `false`|
 
 
@@ -47,6 +48,7 @@ Here is an example of an entry in `config.js`
 		fadePoint: 0.25, // Start on 1/4th of the list.
 		limit: 5,
 		initialLoadDelay: 0,
+		color: true,
 		debug: false			
 	}
 },
