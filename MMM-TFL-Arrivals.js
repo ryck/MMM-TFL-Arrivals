@@ -16,21 +16,12 @@ Module.register("MMM-TFL-Arrivals", {
 		limit: 5,
 		initialLoadDelay: 0, // start delay in milliseconds.
 		debug: false
-
 	},
 	start: function() {
 		Log.log("Starting module: " + this.name);
 		if (this.data.classes === "MMM-TFL-Arrivals") {
 			this.data.classes = "bright medium";
 		}
-		// Override moment relative time strings.
-		moment.updateLocale("en", {
-		    relativeTime : {
-		        s:  "Due",
-		        m:  "1 min",
-		        mm: "%d mins",
-		    }
-		});
 		// Set up the local values, here we construct the request url to use
 		this.apiBase = "https://api.tfl.gov.uk/StopPoint/";
 		this.loaded = false;
@@ -41,14 +32,13 @@ Module.register("MMM-TFL-Arrivals", {
 		this.url = encodeURI(this.apiBase + this.config.naptanId + "/arrivals" + this.getParams());
 		if(this.config.debug) {
 			Log.info(this.url);
-		}		
+		}
 		this.updateBusInfo(this);
 	},
 	// updateBusInfo
 	updateBusInfo: function(self) {
 		self.sendSocketNotification("GET_BUSARRIVALS", {"url":self.url});
 	},
-
 	getStyles: function() {
 		return ["MMM-TFL-Arrivals.css", "font-awesome.css"];
 	},
@@ -60,7 +50,6 @@ Module.register("MMM-TFL-Arrivals", {
 	getHeader: function() {
 		return this.config.header;
 	},
-
 	// Override dom generator.
 	getDom: function() {
 		var wrapper = document.createElement("div");
@@ -133,13 +122,21 @@ Module.register("MMM-TFL-Arrivals", {
 
 				//Time Tabled Departure
 				var timeTabledCell = document.createElement("td");
-				timeTabledCell.innerHTML = moment.duration(bus.timeToStation, "seconds").humanize();
+				var timeToStation = "";
 				timeTabledCell.className = "timeTabled";
-				row.appendChild(timeTabledCell);
-
-				if(bus.timeToStation <= 60) {
+				var minutes = moment.duration(bus.timeToStation, "seconds").minutes();
+				if (minutes < 1) {
+					timeToStation = "Due"
+					timeTabledCell.className += " due";
+				} else if (minutes < 2) {
+					timeToStation = minutes + " " + "min";
 					timeTabledCell.className += " late";
+				} else {
+					timeToStation = minutes + " " + "mins";
 				}
+
+				timeTabledCell.innerHTML = timeToStation
+				row.appendChild(timeTabledCell);
 
 				if (this.config.fade && this.config.fadePoint < 1) {
 					if (this.config.fadePoint < 0) {
@@ -168,7 +165,7 @@ Module.register("MMM-TFL-Arrivals", {
 			var timeCell = document.createElement("td");
 			timeCell.innerHTML = " " + this.buses.timestamp + " ";
 			timeCell.className = "bright";
-			row2.appendChild(timeCell);			
+			row2.appendChild(timeCell);
 		}
 
 		wrapper.appendChild(bustable);
@@ -182,7 +179,7 @@ Module.register("MMM-TFL-Arrivals", {
 	*/
 	processBuses: function(data) {
 		//Check we have data back from API
-		if (typeof data !== 'undefined' && data !== null && data.length !== 0) {
+		if (typeof data !== "undefined" && data !== null && data.length !== 0) {
 			if(this.config.debug) {
 				Log.info(data);
 			}
@@ -191,7 +188,7 @@ Module.register("MMM-TFL-Arrivals", {
 			//Define array of departure info
 	    	this.buses.data = [];
 			//Define timestamp of current data
-			this.buses.timestamp = moment().format('LLL');
+			this.buses.timestamp = moment().format("LLL");
 			//Define message holder
 			this.buses.message = null;
 
@@ -226,7 +223,7 @@ Module.register("MMM-TFL-Arrivals", {
 			//No data returned - set error message
 			this.buses.message = "No data returned";
 			this.buses.data = null;
-			this.buses.timestamp = moment().format('LLL');
+			this.buses.timestamp = moment().format("LLL");
 			if(this.config.debug) {
 				Log.error("No data returned");
 				Log.error(this.buses);
@@ -236,7 +233,7 @@ Module.register("MMM-TFL-Arrivals", {
 	    this.loaded = true;
 
 		this.updateDom(this.config.animationSpeed);
-  	},
+	},
 	getParams: function() {
 		var params = "?";
 		params += "app_id=" + this.config.app_id;
@@ -264,9 +261,9 @@ Module.register("MMM-TFL-Arrivals", {
 	},
 	// Process data returned
 	socketNotificationReceived: function(notification, payload) {
-	    if (notification === "BUS_DATA" && payload.url === this.url) {
-		this.processBuses(payload.data);
-		this.scheduleUpdate(this.config.updateInterval);
-	    }
+	  if (notification === "BUS_DATA" && payload.url === this.url) {
+			this.processBuses(payload.data);
+			this.scheduleUpdate(this.config.updateInterval);
 	  }
+	}
 });

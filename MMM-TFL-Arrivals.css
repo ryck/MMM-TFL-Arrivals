@@ -29,8 +29,12 @@
 .timeTabled {
   text-align: right;
 }
+.due {
+  color: #DC241F;
+}
+
 .late {
-  color: #ff0000;
+  color: #FFCE00;
 }
 
 .busStopName {
