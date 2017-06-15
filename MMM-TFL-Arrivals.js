@@ -95,7 +95,15 @@ Module.register("MMM-TFL-Arrivals", {
 		//If we have departure info
 		if(this.buses.data !== null) {
 
-			for (var t in this.buses.data) {
+			//Figure out how long the results are
+			var counter = this.buses.data.length;
+
+			//See if there are more results than requested and limit if necessary
+			if (counter > this.config.limit) {
+				counter = this.config.limit;
+			}
+
+			for (var t = 0; t < counter; t++) {
 				var bus = this.buses.data[t];
 
 				var row = document.createElement("tr");
@@ -199,10 +207,6 @@ Module.register("MMM-TFL-Arrivals", {
 
 			//Figure out how long the results are
 			var counter = data.length;
-			//See if there are more results than requested and limit if necessary
-			if (counter > this.config.limit) {
-				counter = this.config.limit;
-			}
 
 			for (var i = 0; i < counter; i++) {
 				var bus = data[i];

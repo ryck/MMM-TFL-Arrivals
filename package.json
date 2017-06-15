@@ -1,6 +1,6 @@
 {
     "name":         "MMM-TFL-Arrivals",
-    "version":      "1.2.0",
+    "version":      "1.2.1",
     "description":  "MagicMirror 2 module to get arrivals predictions using TfL API.",
     "repository":   {
                     "type": "git",
