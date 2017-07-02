@@ -22,13 +22,10 @@ module.exports = NodeHelper.create({
 			var retry = true;
 
 			request({url:url, method: "GET"}, function(error, response, body) {
-	            // Lets convert the body into JSON
-	            var result = JSON.parse(body);
-
-				if(!error && response.statusCode == 200) {
+				if(!error && response.statusCode == 200 && body != null) {
 					self.sendSocketNotification("BUS_DATA", {"data": JSON.parse(body), "url": url});
 				} else {
-					self.sendSocketNotification("BUS_DATA", {"data": null, "url": url});					
+					self.sendSocketNotification("BUS_DATA", {"data": null, "url": url});
 				}
 			});
 		},
