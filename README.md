@@ -20,7 +20,7 @@ The entry in `config.js` can include the following options:
 |Option|Description|
 |---|---|
 |`app_id`|**Required** This is the App ID assigned to you on the TfL Open Data Portal.  Details on how to request an App ID can be found [here](https://api.tfl.gov.uk/)<br><br>**Type:** `string`<br>|
-|`api_key`|**Required** This is the API key assigned to you on the TfL Open Data Portal.  Details on how to request an API key can be found [here](https://api.tfl.gov.uk/)<br><br>**Type:** `string`<br>|
+|`app_key`|**Required** This is the App key assigned to you on the TfL Open Data Portal.  Details on how to request an App key can be found [here](https://api.tfl.gov.uk/)<br><br>**Type:** `string`<br>|
 |`naptanId`|**Required** A StopPoint id (station naptan code e.g. 940GZZLUAS). You can search for StopPoints IDs [here](http://transport-points.co.uk/index.asp?size=F)<br><br>**Type:** `string`<br>|
 |`updateInterval `|How often the arrival information is updated.<br><br>**Type:** `integer`<br>**Default value:** `1 min`|
 | `fade` | Fade the future events to black. (Gradient) <br><br>**Type:** `bool`<br>**Possible values:** `true` or `false` <br> **Default value:** `true`|
@@ -41,7 +41,7 @@ Here is an example of an entry in `config.js`
 	header: 'Bus Arrivals',
 	config: {
 		app_id: "$APPID",
-		api_key: "$APIKEY",
+		app_key: "$APPKEY",
 		naptanId: "940GZZLUBLM", // StopPoint id
 		animationSpeed: 1000,
 		fade: true,
