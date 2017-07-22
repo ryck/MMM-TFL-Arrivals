@@ -7,7 +7,7 @@
 Module.register("MMM-TFL-Arrivals", {
 	defaults: {
 		app_id: "",
-		api_key: "",
+		app_key: "",
 		naptanId: "", // StopPoint id
 		updateInterval: 60 * 1 * 1000, // Every minute
 		animationSpeed: 2000,
@@ -246,7 +246,7 @@ Module.register("MMM-TFL-Arrivals", {
 	getParams: function() {
 		var params = "?";
 		params += "app_id=" + this.config.app_id;
-		params += "&api_key=" + this.config.api_key;
+		params += "&app_key=" + this.config.app_key;
 		if(this.config.debug) {
 			Log.info(params);
 		}
