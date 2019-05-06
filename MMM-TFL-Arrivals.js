@@ -112,15 +112,18 @@ Module.register("MMM-TFL-Arrivals", {
 				//Route name/Number
 				var routeCell = document.createElement("td");
 				routeCell.className = "route";
+				var icon = ""
 				switch (bus.modeName) {
-					case "bus":
+				case "bus":
 					routeCell.className += " bus";
+					icon = "<i class=\"fas fa-bus\"></i>"
 					break;
-					case "tube":
+				case "tube":
 					routeCell.className += " tube";
+					icon = "<i class=\"fas fa-subway\"></i>"
 					break;
 				}
-				routeCell.innerHTML = " " + bus.routeName + " ";
+				routeCell.innerHTML = icon + bus.routeName + " ";
 				row.appendChild(routeCell);
 
 				//Direction Info

@@ -5,7 +5,7 @@
   text-align: left;
 }
 
- .dest {
+.dest {
   min-width: 175px;
   max-width: 200px;
   overflow: hidden;
@@ -15,27 +15,19 @@
   white-space: nowrap;
 }
 
-.route:before {
-  font-size: 125%;
-  font-family: 'FontAwesome';
-}
-.bus:before {
-  content: '\f207';
-}
-
-.tube:before {
-  content: '\f239';
+.route i {
+  margin-right: 5px;
 }
 
 .timeTabled {
   text-align: right;
 }
 .due {
-  color: #DC241F;
+  color: #dc241f;
 }
 
 .late {
-  color: #FFCE00;
+  color: #ffce00;
 }
 
 .busStopName {

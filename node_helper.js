@@ -18,17 +18,17 @@ module.exports = NodeHelper.create({
 	 * Sends data back via socket on succesfull response.
 	 */
 	getTimetable: function(url) {
-			var self = this;
-			var retry = true;
+		var self = this;
+		var retry = true;
 
-			request({url:url, method: "GET"}, function(error, response, body) {
-				if(!error && response.statusCode == 200 && body != null) {
-					self.sendSocketNotification("BUS_DATA", {"data": JSON.parse(body), "url": url});
-				} else {
-					self.sendSocketNotification("BUS_DATA", {"data": null, "url": url});
-				}
-			});
-		},
+		request({url:url, method: "GET"}, function(error, response, body) {
+			if(!error && response.statusCode == 200 && body != null) {
+				self.sendSocketNotification("BUS_DATA", {"data": JSON.parse(body), "url": url});
+			} else {
+				self.sendSocketNotification("BUS_DATA", {"data": null, "url": url});
+			}
+		});
+	},
 	//Subclass socketNotificationReceived received.
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "GET_BUSARRIVALS") {
