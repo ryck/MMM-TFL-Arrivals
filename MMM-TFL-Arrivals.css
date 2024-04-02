@@ -3,6 +3,7 @@
   display: inline-block;
   padding-right: 10px;
   text-align: left;
+  min-width: 50px;
 }
 
 .dest {

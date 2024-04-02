@@ -10,8 +10,8 @@ This module gets real time arrival predictions for specific stops using the TfL 
 ## Installation
 
 ```bash
-git clone https://github.com/ryck/MMM-TFL-Arrivals.git
-cd MMM-TFL-Arrivals
+git clone https://github.com/ryck/MMM-TFL-Arrivals.git &&
+cd MMM-TFL-Arrivals &&
 npm install
 ```
 
@@ -57,7 +57,7 @@ Here is an example of an entry in `config.js`
 
 ## Dependencies
 
-- [request](https://www.npmjs.com/package/request) (installed via `npm install`)
+- [axios](https://www.npmjs.com/package/axios) (installed via `npm install`)
 
 ## Thanks To...
 

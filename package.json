@@ -1,6 +1,6 @@
 {
   "name": "MMM-TFL-Arrivals",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "MagicMirror 2 module to get arrivals predictions using TfL API.",
   "repository": {
     "type": "git",
@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/ryck/MMM-TFL-Arrivals#readme",
   "dependencies": {
-    "request": "latest"
+    "axios": "^1.6.8"
   }
 }

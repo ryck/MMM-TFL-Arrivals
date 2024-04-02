@@ -7,32 +7,38 @@
  */
 
 var NodeHelper = require("node_helper");
-var request = require("request");
+const axios = require("axios");
 
 module.exports = NodeHelper.create({
-	start: function () {
-		console.log("MMM-TFL-Arrivals helper started ...");
-	},
-	/* getTimetable()
-	 * Requests new data from TfL API.
-	 * Sends data back via socket on succesfull response.
-	 */
-	getTimetable: function(url) {
-		var self = this;
-		var retry = true;
+  start: function () {
+    console.log("MMM-TFL-Arrivals helper started ...");
+  },
+  /* getTimetable()
+   * Requests new data from TfL API.
+   * Sends data back via socket on succesfull response.
+   */
+  getTimetable: async function (url) {
+    var self = this;
 
-		request({url:url, method: "GET"}, function(error, response, body) {
-			if(!error && response.statusCode == 200 && body != null) {
-				self.sendSocketNotification("BUS_DATA", {"data": JSON.parse(body), "url": url});
-			} else {
-				self.sendSocketNotification("BUS_DATA", {"data": null, "url": url});
-			}
-		});
-	},
-	//Subclass socketNotificationReceived received.
-	socketNotificationReceived: function(notification, payload) {
-		if (notification === "GET_BUSARRIVALS") {
-			this.getTimetable(payload.url);
-		}
-	}
+    const { data, status, statusText } = await axios.get(url);
+    if (status === 200) {
+      if (statusText === "error") {
+        self.sendSocketNotification("TFL_ARRIVALS_DATA", { data: null, url });
+      } else {
+        self.sendSocketNotification("TFL_ARRIVALS_DATA", {
+          data,
+          url,
+        });
+      }
+    } else {
+      self.sendSocketNotification("TFL_ARRIVALS_DATA", { data: null, url });
+    }
+  },
+
+  //Subclass socketNotificationReceived received.
+  socketNotificationReceived: function (notification, payload) {
+    if (notification === "GET_TFL_ARRIVALS_DATA") {
+      this.getTimetable(payload.url);
+    }
+  },
 });
