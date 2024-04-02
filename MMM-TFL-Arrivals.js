@@ -12,6 +12,7 @@ Module.register("MMM-TFL-Arrivals", {
     fade: true,
     fadePoint: 0.25, // Start on 1/4th of the list.
     limit: 5,
+    lateThreshold: 2,
     initialLoadDelay: 0, // start delay in milliseconds.
     color: true,
     debug: false,
@@ -143,7 +144,7 @@ Module.register("MMM-TFL-Arrivals", {
           if (this.config.color) {
             timeTabledCell.className += " due";
           }
-        } else if (minutes < 2) {
+        } else if (minutes < this.config.lateThreshold) {
           timeToStation = minutes + " " + "min";
           if (this.config.color) {
             timeTabledCell.className += " late";
