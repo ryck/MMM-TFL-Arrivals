@@ -58,7 +58,7 @@ Here is an example of an entry in `config.js`
 
 ## Dependencies
 
-- [axios](https://www.npmjs.com/package/axios) (installed via `npm install`)
+- No dependencies (viva modern JavaScript!)
 
 ## Thanks To...
 
