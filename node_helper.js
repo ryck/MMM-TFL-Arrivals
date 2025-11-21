@@ -6,8 +6,7 @@
  * MIT Licensed.
  */
 
-var NodeHelper = require("node_helper");
-const axios = require("axios");
+const NodeHelper = require("node_helper");
 
 module.exports = NodeHelper.create({
   start: function () {
@@ -18,20 +17,22 @@ module.exports = NodeHelper.create({
    * Sends data back via socket on succesfull response.
    */
   getTimetable: async function (url) {
-    var self = this;
+    try {
+      const response = await fetch(url);
 
-    const { data, status, statusText } = await axios.get(url);
-    if (status === 200) {
-      if (statusText === "error") {
-        self.sendSocketNotification("TFL_ARRIVALS_DATA", { data: null, url });
-      } else {
-        self.sendSocketNotification("TFL_ARRIVALS_DATA", {
+      if (response.ok) {
+        const data = await response.json();
+        this.sendSocketNotification("TFL_ARRIVALS_DATA", {
           data,
           url,
         });
+      } else {
+        console.error("MMM-TFL-Arrivals: API returned non-200 status", response.status);
+        this.sendSocketNotification("TFL_ARRIVALS_DATA", { data: null, url });
       }
-    } else {
-      self.sendSocketNotification("TFL_ARRIVALS_DATA", { data: null, url });
+    } catch (error) {
+      console.error("MMM-TFL-Arrivals: Error fetching data", error.message);
+      this.sendSocketNotification("TFL_ARRIVALS_DATA", { data: null, url });
     }
   },
 

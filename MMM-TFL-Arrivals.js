@@ -26,7 +26,6 @@ Module.register("MMM-TFL-Arrivals", {
     this.apiBase = "https://api.tfl.gov.uk/StopPoint/";
     this.loaded = false;
     this.buses = {};
-    this.loaded = false;
     this.scheduleUpdate(this.config.initialLoadDelay);
     this.updateTimer = null;
     this.url = encodeURI(
@@ -35,11 +34,11 @@ Module.register("MMM-TFL-Arrivals", {
     if (this.config.debug) {
       Log.info(this.url);
     }
-    this.updateBusInfo(this);
+    this.updateBusInfo();
   },
   // updateBusInfo
-  updateBusInfo: function (self) {
-    self.sendSocketNotification("GET_TFL_ARRIVALS_DATA", { url: self.url });
+  updateBusInfo: function () {
+    this.sendSocketNotification("GET_TFL_ARRIVALS_DATA", { url: this.url });
   },
   getStyles: function () {
     return ["MMM-TFL-Arrivals.css", "font-awesome.css"];
@@ -54,7 +53,7 @@ Module.register("MMM-TFL-Arrivals", {
   },
   // Override dom generator.
   getDom: function () {
-    var wrapper = document.createElement("div");
+    const wrapper = document.createElement("div");
 
     if (this.config.naptanId === "") {
       wrapper.innerHTML =
@@ -92,29 +91,29 @@ Module.register("MMM-TFL-Arrivals", {
     }
 
     // *** Start Building Table
-    var bustable = document.createElement("table");
+    const bustable = document.createElement("table");
     bustable.className = "small";
 
     //If we have departure info
     if (this.buses.data !== null) {
       //Figure out how long the results are
-      var counter = this.buses.data.length;
+      let counter = this.buses.data.length;
 
       //See if there are more results than requested and limit if necessary
       if (counter > this.config.limit) {
         counter = this.config.limit;
       }
 
-      for (var t = 0; t < counter; t++) {
-        var bus = this.buses.data[t];
+      for (let t = 0; t < counter; t++) {
+        const bus = this.buses.data[t];
 
-        var row = document.createElement("tr");
+        const row = document.createElement("tr");
         bustable.appendChild(row);
 
         //Route name/Number
-        var routeCell = document.createElement("td");
+        const routeCell = document.createElement("td");
         routeCell.className = "route";
-        var icon = "";
+        let icon = "";
         switch (bus.modeName) {
           case "bus":
             routeCell.className += " bus";
@@ -129,28 +128,26 @@ Module.register("MMM-TFL-Arrivals", {
         row.appendChild(routeCell);
 
         //Direction Info
-        var directionCell = document.createElement("td");
+        const directionCell = document.createElement("td");
         directionCell.className = "dest";
         directionCell.innerHTML = bus.direction;
         row.appendChild(directionCell);
 
         //Time Tabled Departure
-        var timeTabledCell = document.createElement("td");
-        var timeToStation = "";
+        const timeTabledCell = document.createElement("td");
+        let timeToStation = "";
         timeTabledCell.className = "timeTabled";
-        var minutes = moment.duration(bus.timeToStation, "seconds").minutes();
-        if (minutes < 1) {
+        if (bus.timeToStation < 60) {
           timeToStation = "Due";
           if (this.config.color) {
             timeTabledCell.className += " due";
           }
-        } else if (minutes < this.config.lateThreshold) {
-          timeToStation = minutes + " " + "min";
-          if (this.config.color) {
+        } else {
+          const minutes = Math.floor(bus.timeToStation / 60);
+          timeToStation = minutes + (minutes < 2 ? " min" : " mins");
+          if (this.config.color && minutes < this.config.lateThreshold) {
             timeTabledCell.className += " late";
           }
-        } else {
-          timeToStation = minutes + " " + "mins";
         }
 
         timeTabledCell.innerHTML = timeToStation;
@@ -160,27 +157,27 @@ Module.register("MMM-TFL-Arrivals", {
           if (this.config.fadePoint < 0) {
             this.config.fadePoint = 0;
           }
-          var startingPoint = this.buses.data.length * this.config.fadePoint;
-          var steps = this.buses.data.length - startingPoint;
+          const startingPoint = this.buses.data.length * this.config.fadePoint;
+          const steps = this.buses.data.length - startingPoint;
           if (t >= startingPoint) {
-            var currentStep = t - startingPoint;
+            const currentStep = t - startingPoint;
             row.style.opacity = 1 - (1 / steps) * currentStep;
           }
         }
       }
     } else {
-      var row1 = document.createElement("tr");
+      const row1 = document.createElement("tr");
       bustable.appendChild(row1);
 
-      var messageCell = document.createElement("td");
+      const messageCell = document.createElement("td");
       messageCell.innerHTML = " " + this.buses.message + " ";
       messageCell.className = "bright";
       row1.appendChild(messageCell);
 
-      var row2 = document.createElement("tr");
+      const row2 = document.createElement("tr");
       bustable.appendChild(row2);
 
-      var timeCell = document.createElement("td");
+      const timeCell = document.createElement("td");
       timeCell.innerHTML = " " + this.buses.timestamp + " ";
       timeCell.className = "bright";
       row2.appendChild(timeCell);
@@ -210,10 +207,10 @@ Module.register("MMM-TFL-Arrivals", {
       this.buses.message = null;
 
       //Figure out how long the results are
-      var counter = data.length;
+      const counter = data.length;
 
-      for (var i = 0; i < counter; i++) {
-        var bus = data[i];
+      for (let i = 0; i < counter; i++) {
+        const bus = data[i];
 
         if (this.config.debug) {
           Log.info(
@@ -259,7 +256,7 @@ Module.register("MMM-TFL-Arrivals", {
     this.updateDom(this.config.animationSpeed);
   },
   getParams: function () {
-    var params = "?";
+    let params = "?";
     params += "app_id=" + this.config.app_id;
     params += "&app_key=" + this.config.app_key;
     if (this.config.debug) {
@@ -272,15 +269,14 @@ Module.register("MMM-TFL-Arrivals", {
    * argument delay number - Milliseconds before next update. If empty, this.config.updateInterval is used.
    */
   scheduleUpdate: function (delay) {
-    var nextLoad = this.config.updateInterval;
+    let nextLoad = this.config.updateInterval;
     if (typeof delay !== "undefined" && delay >= 0) {
       nextLoad = delay;
     }
 
-    var self = this;
     clearTimeout(this.updateTimer);
-    this.updateTimer = setTimeout(function () {
-      self.updateBusInfo(self);
+    this.updateTimer = setTimeout(() => {
+      this.updateBusInfo();
     }, nextLoad);
   },
   // Process data returned
